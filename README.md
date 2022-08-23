@@ -12,10 +12,10 @@ Add dependencies to your build.gradle
 
 ```kotlin
 //pure base lib dependency without any concurrent work (but you will need to implement some basic stuff to work with click and etc.)
-implementation 'ru.tinkoff:ti-recycler:1.0.0'
+implementation 'ru.tinkoff.mobile:ti-recycler:1.0.0'
 //or 
 // version with RxJava2 
-implementation 'ru.tinkoff:ti-recycler-rx2:1.0.0'
+implementation 'ru.tinkoff.mobile:ti-recycler-rx2:1.0.0'
 
 //if you want coroutines version feel free to contribute or wait for me doing it
 ```
