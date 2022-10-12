@@ -16,3 +16,4 @@ rootProject.name = "TiRecycler"
 include ':sample'
 include ':ti-recycler'
 include ':ti-recycler-rx2'
+include ':ti-recycler-coroutines'
