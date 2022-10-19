@@ -44,5 +44,9 @@ abstract class BaseTiAdapter<T : ViewTyped, HF : HolderFactory>(val holderFactor
         holder.onViewDetachedFromWindow()
     }
 
+    override fun onViewRecycled(holder: BaseViewHolder<ViewTyped>) {
+       holder.unbind()
+    }
+
     fun isEmpty(): Boolean = items.isEmpty()
 }

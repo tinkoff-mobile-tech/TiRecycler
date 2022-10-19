@@ -3,9 +3,9 @@ package ru.tinkoff.tirecycler.items
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
-import ru.tinkoff.mobile.tech.ti_recycler_rx2.base.BaseRxViewHolder
-import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerHolderClickListener
+import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 import ru.tinkoff.tirecycler.R
 import ru.tinkoff.tirecycler.databinding.ItemTitleWithSubtitleBinding
 import ru.tinkoff.tirecycler.util.setImageResourceOrGone
@@ -24,8 +24,8 @@ data class TitleWithSubtitleUi(
 
 class TitleWithSubtitleViewHolder(
     view: View,
-    clicks: TiRecyclerHolderClickListener
-) : BaseRxViewHolder<TitleWithSubtitleUi>(view, clicks) {
+    clicks: TiRecyclerClickListener
+) : BaseViewHolder<TitleWithSubtitleUi>(view, clicks) {
 
     private val binding = ItemTitleWithSubtitleBinding.bind(view)
 

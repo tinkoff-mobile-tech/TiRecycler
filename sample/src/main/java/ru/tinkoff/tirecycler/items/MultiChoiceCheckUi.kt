@@ -2,9 +2,9 @@ package ru.tinkoff.tirecycler.items
 
 import android.view.View
 import androidx.annotation.DrawableRes
+import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
-import ru.tinkoff.mobile.tech.ti_recycler_rx2.base.BaseRxViewHolder
-import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerHolderClickListener
+import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 import ru.tinkoff.tirecycler.R
 import ru.tinkoff.tirecycler.databinding.ItemMultichoiceBinding
 import ru.tinkoff.tirecycler.util.setCompoundDrawables
@@ -19,8 +19,8 @@ data class MultiChoiceCheckUi(
 
 class MultiChoiceCheckViewHolder(
     view: View,
-    clicks: TiRecyclerHolderClickListener
-) : BaseRxViewHolder<MultiChoiceCheckUi>(view) {
+    clicks: TiRecyclerClickListener
+) : BaseViewHolder<MultiChoiceCheckUi>(view) {
 
     private val binding = ItemMultichoiceBinding.bind(view)
 

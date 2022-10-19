@@ -4,9 +4,9 @@ import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
-import ru.tinkoff.mobile.tech.ti_recycler_rx2.base.BaseRxViewHolder
-import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerHolderClickListener
+import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 import ru.tinkoff.tirecycler.R
 import ru.tinkoff.tirecycler.databinding.ItemTextBinding
 import ru.tinkoff.tirecycler.util.removeAllCompoundDrawables
@@ -24,8 +24,8 @@ data class TextUi(
 
 open class TextUiViewHolder(
     view: View,
-    clicks: TiRecyclerHolderClickListener
-) : BaseRxViewHolder<TextUi>(view, clicks) {
+    clicks: TiRecyclerClickListener
+) : BaseViewHolder<TextUi>(view, clicks) {
 
     private val binding = ItemTextBinding.bind(view)
 

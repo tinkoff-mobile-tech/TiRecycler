@@ -8,16 +8,12 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.functions.Consumer
 import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
+import ru.tinkoff.mobile.tech.ti_recycler.clicks.CheckItemChange
+import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerCheckChangeListener
 
-interface TiRecyclerHolderCheckChangeListener {
-    fun accept(viewHolder: BaseViewHolder<*>, onCheckChanged: (Boolean) -> Unit = {})
-    fun accept(view: View, viewHolder: BaseViewHolder<*>, onCheckChanged: (Boolean) -> Unit = {})
-}
 
-data class CheckItemChange(val viewType: Int, val compoundView: CompoundButton, val position: Int)
-
-class TiRecyclerHolderCheckChangeObservable : Observable<CheckItemChange>(),
-    TiRecyclerHolderCheckChangeListener {
+class TiRecyclerCheckChangeObservable : Observable<CheckItemChange>(),
+    TiRecyclerCheckChangeListener {
 
     private val source: PublishRelay<CheckItemChange> = PublishRelay.create()
 
@@ -48,16 +44,10 @@ class TiRecyclerHolderCheckChangeObservable : Observable<CheckItemChange>(),
         private val onCheckChanged: (Boolean) -> Unit
     ) : CompoundButton.OnCheckedChangeListener {
 
-        override fun onCheckedChanged(button: CompoundButton, isChecked: Boolean) {
-            if (viewHolder.bindingAdapterPosition != RecyclerView.NO_POSITION) {
+        override fun onCheckedChanged(button: CompoundButton, isChecked: Boolean) = viewHolder.run {
+            if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                 onCheckChanged(isChecked)
-                source.accept(
-                    CheckItemChange(
-                        viewHolder.itemViewType,
-                        clickedView,
-                        viewHolder.bindingAdapterPosition
-                    )
-                )
+                source.accept(CheckItemChange(itemViewType, clickedView, bindingAdapterPosition))
             }
         }
     }

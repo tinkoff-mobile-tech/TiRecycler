@@ -19,9 +19,7 @@ internal class TiRecyclerBuilderImpl<T : ViewTyped>(
         diffCallback: DiffUtil.ItemCallback<T>? = null
     ) : this(diffCallback?.run {
         AsyncTiAdapter(holderFactory, this)
-    } ?: SimpleTiAdapter(
-        holderFactory
-    ))
+    } ?: SimpleTiAdapter(holderFactory))
 
     override val itemDecoration: MutableList<RecyclerView.ItemDecoration> = mutableListOf()
     override var layoutManager: RecyclerView.LayoutManager? = null

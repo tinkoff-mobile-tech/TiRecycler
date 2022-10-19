@@ -1,9 +1,9 @@
 package ru.tinkoff.tirecycler.items
 
 import android.view.View
+import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
-import ru.tinkoff.mobile.tech.ti_recycler_rx2.base.BaseRxViewHolder
-import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemClicksObservable
+import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 import ru.tinkoff.tirecycler.R
 import ru.tinkoff.tirecycler.databinding.ItemHeaderBinding
 
@@ -16,8 +16,8 @@ data class HeaderUi(
 
 class HeaderUiViewHolder(
     view: View,
-    clicks: TiRecyclerItemClicksObservable
-) : BaseRxViewHolder<HeaderUi>(view, clicks) {
+    clicks: TiRecyclerClickListener
+) : BaseViewHolder<HeaderUi>(view, clicks) {
 
     private val binding = ItemHeaderBinding.bind(view)
 
