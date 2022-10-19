@@ -1,16 +1,16 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 
 android {
-    compileSdk 31
+    compileSdk = 33
 
     defaultConfig {
         applicationId "ru.tinkoff.tirecycler_sample"
         minSdk 21
-        targetSdk 31
+        targetSdk 33
         versionCode 1
         versionName "1.0"
     }
@@ -29,9 +29,9 @@ android {
 dependencies {
     implementation project(":ti-recycler")
     implementation project(":ti-recycler-rx2")
-    implementation "androidx.activity:activity:1.4.0"
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.6'
+    implementation "androidx.activity:activity:1.6.0"
+    implementation "androidx.core:core-ktx:1.9.0"
+    implementation "androidx.appcompat:appcompat:1.5.1"
+    implementation "com.google.android.material:material:1.7.0"
+    implementation "com.github.kirich1409:viewbindingpropertydelegate:1.5.6"
 }
