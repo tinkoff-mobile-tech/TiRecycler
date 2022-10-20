@@ -3,7 +3,6 @@ package ru.tinkoff.mobile.tech.ti_recycler_coroutines
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 import ru.tinkoff.mobile.tech.ti_recycler.BaseTiRecycler
 import ru.tinkoff.mobile.tech.ti_recycler.TiRecyclerBuilder
@@ -80,6 +79,7 @@ internal class TiRecyclerCoroutinesImpl<T : ViewTyped>(
         viewType: Int,
         viewId: Int
     ): Flow<Pair<R, Boolean>> {
-        return emptyFlow()
+        return adapter.holderFactory.checkChanges(viewType, viewId)
+            .map { (clickedPosition, isChecked) -> adapter.items[clickedPosition] as R to isChecked }
     }
 }

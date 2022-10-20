@@ -40,7 +40,7 @@ class CoroutinesDemoActivity : AppCompatActivity(R.layout.activity_recycler) {
                 recycler.clickedItem<TitleWithSubtitleUi>(R.layout.item_title_with_subtitle)
                     .map { "TitleWithSubtitleUi: ${it.title}\n ${it.subtitle}" },
                 recycler.clickedItem<MultiChoiceCheckUi>(R.layout.item_multichoice)
-                    .map { "MultiChoiceCheckUi: ${it.title}" },
+                    .map { "MultiChoiceCheckUi: ${it.title}, isChecked: ${it.isChecked}" },
             )
                 .merge()
                 .collect { Toast.makeText(this@CoroutinesDemoActivity, it, Toast.LENGTH_LONG).show() }
