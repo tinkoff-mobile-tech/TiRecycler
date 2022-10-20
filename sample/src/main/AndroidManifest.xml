@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TiRecycler">
         <activity
-            android:name=".DemoActivity"
+            android:name=".rx.RxDemoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
