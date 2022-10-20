@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.onEach
 import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 
@@ -12,7 +13,7 @@ data class ItemClick(val viewType: Int, val position: Int, val view: View)
 
 class TiRecyclerItemClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
 
-    private val source: MutableSharedFlow<ItemClick> = MutableSharedFlow()
+    private val source: MutableSharedFlow<ItemClick> = MutableSharedFlow(extraBufferCapacity = 1)
 
     override fun accept(viewHolder: BaseViewHolder<*>, onClick: () -> Unit) {
         viewHolder.itemView.run { setOnClickListener(Listener(source, viewHolder, this, onClick)) }
@@ -23,7 +24,9 @@ class TiRecyclerItemClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
     }
 
     override suspend fun collect(collector: FlowCollector<ItemClick>) {
-        source.collect(collector)
+        source
+            .onEach { itemClick -> println(itemClick.toString()) }
+            .collect(collector)
     }
 
     class Listener(

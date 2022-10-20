@@ -10,7 +10,7 @@ import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 
 class TiRecyclerItemLongClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
 
-    private val source: MutableSharedFlow<ItemClick> = MutableSharedFlow()
+    private val source: MutableSharedFlow<ItemClick> = MutableSharedFlow(extraBufferCapacity = 1)
 
     override fun accept(viewHolder: BaseViewHolder<*>, onClick: () -> Unit) {
         viewHolder.itemView.run {
