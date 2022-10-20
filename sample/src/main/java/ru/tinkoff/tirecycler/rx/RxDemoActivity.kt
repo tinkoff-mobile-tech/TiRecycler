@@ -1,4 +1,4 @@
-package ru.tinkoff.tirecycler
+package ru.tinkoff.tirecycler.rx
 
 import android.os.Bundle
 import android.widget.Toast
@@ -9,6 +9,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.TiRecyclerRx
+import ru.tinkoff.tirecycler.R
 import ru.tinkoff.tirecycler.databinding.ActivityRecyclerBinding
 import ru.tinkoff.tirecycler.items.HeaderUi
 import ru.tinkoff.tirecycler.items.MultiChoiceCheckUi
@@ -16,7 +17,7 @@ import ru.tinkoff.tirecycler.items.TextUi
 import ru.tinkoff.tirecycler.items.TitleWithSubtitleUi
 
 
-class DemoActivity : AppCompatActivity(R.layout.activity_recycler) {
+class RxDemoActivity : AppCompatActivity(R.layout.activity_recycler) {
 
     private val binding: ActivityRecyclerBinding by viewBinding(R.id.recyclerView)
 
@@ -26,7 +27,7 @@ class DemoActivity : AppCompatActivity(R.layout.activity_recycler) {
         super.onCreate(savedInstanceState)
         val holderFactory = SampleTiRecyclerHolderFactory()
         val recycler = TiRecyclerRx<ViewTyped>(binding.recyclerView, holderFactory) {
-            layoutManager = LinearLayoutManager(this@DemoActivity)
+            layoutManager = LinearLayoutManager(this@RxDemoActivity)
         }
         recycler.setItems(getBaseRecyclerItems())
 
