@@ -6,13 +6,10 @@ apply from: '../gradle/publish-lib.gradle'
 
 android {
     namespace = "ru.tinkoff.ti_recycler_coroutines"
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
