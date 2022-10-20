@@ -8,18 +8,25 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 
-data class ItemClick(val viewType: Int, val position: Int, val view: View)
-
-class TiRecyclerItemClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
+class TiRecyclerItemLongClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
 
     private val source: MutableSharedFlow<ItemClick> = MutableSharedFlow()
 
     override fun accept(viewHolder: BaseViewHolder<*>, onClick: () -> Unit) {
-        viewHolder.itemView.run { setOnClickListener(Listener(source, viewHolder, this, onClick)) }
+        viewHolder.itemView.run {
+            setOnLongClickListener(
+                Listener(
+                    source,
+                    viewHolder,
+                    this,
+                    onClick
+                )
+            )
+        }
     }
 
     override fun accept(view: View, viewHolder: BaseViewHolder<*>, onClick: () -> Unit) {
-        view.setOnClickListener(Listener(source, viewHolder, view, onClick))
+        view.setOnLongClickListener(Listener(source, viewHolder, view, onClick))
     }
 
     override suspend fun collect(collector: FlowCollector<ItemClick>) {
@@ -31,10 +38,10 @@ class TiRecyclerItemClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
         private val viewHolder: BaseViewHolder<*>,
         private val clickedView: View,
         private val onClick: () -> Unit
-    ) : View.OnClickListener {
+    ) : View.OnLongClickListener {
 
-        override fun onClick(v: View) {
-            if (viewHolder.bindingAdapterPosition != RecyclerView.NO_POSITION) {
+        override fun onLongClick(v: View): Boolean {
+            return if (viewHolder.bindingAdapterPosition != RecyclerView.NO_POSITION) {
                 onClick()
                 source.tryEmit(
                     ItemClick(
@@ -43,6 +50,9 @@ class TiRecyclerItemClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
                         clickedView
                     )
                 )
+                true
+            } else {
+                false
             }
         }
     }
