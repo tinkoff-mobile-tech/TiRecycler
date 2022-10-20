@@ -10,13 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TiRecycler">
         <activity
-            android:name=".rx.RxDemoActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".rx.RxDemoActivity" />
+
+        <activity android:name=".coroutines.CoroutinesDemoActivity" />
+
     </application>
 
 </manifest>
