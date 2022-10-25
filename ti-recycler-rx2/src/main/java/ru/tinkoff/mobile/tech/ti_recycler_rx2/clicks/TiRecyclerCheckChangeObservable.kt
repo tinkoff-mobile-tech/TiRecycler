@@ -47,7 +47,7 @@ class TiRecyclerCheckChangeObservable : Observable<CheckItemChange>(),
         override fun onCheckedChanged(button: CompoundButton, isChecked: Boolean) = viewHolder.run {
             if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                 onCheckChanged(isChecked)
-                source.accept(CheckItemChange(itemViewType, clickedView, bindingAdapterPosition, isChecked))
+                source.accept(CheckItemChange(itemViewType, clickedView, bindingAdapterPosition))
             }
         }
     }

@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
 import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
+import ru.tinkoff.mobile.tech.ti_recycler.clicks.ItemClick
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 
 class TiRecyclerItemLongClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
