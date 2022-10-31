@@ -1,4 +1,4 @@
-package ru.tinkoff.tirecycler.items
+package ru.tinkoff.mobile.tech.tirecycler.items
 
 import android.view.View
 import androidx.annotation.ColorInt
@@ -6,10 +6,10 @@ import androidx.annotation.DrawableRes
 import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
-import ru.tinkoff.tirecycler.R
-import ru.tinkoff.tirecycler.databinding.ItemTitleWithSubtitleBinding
-import ru.tinkoff.tirecycler.util.setImageResourceOrGone
-import ru.tinkoff.tirecycler.util.setTextIfNotNullOrGone
+import ru.tinkoff.mobile.tech.tirecycler.R
+import ru.tinkoff.mobile.tech.tirecycler.databinding.ItemTitleWithSubtitleBinding
+import ru.tinkoff.mobile.tech.tirecycler.util.setImageResourceOrGone
+import ru.tinkoff.mobile.tech.tirecycler.util.setTextIfNotNullOrGone
 
 data class TitleWithSubtitleUi(
     val title: CharSequence,

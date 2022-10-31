@@ -1,13 +1,13 @@
-package ru.tinkoff.tirecycler.rx
+package ru.tinkoff.mobile.tech.tirecycler.rx
 
 import android.view.View
 import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.base.RxHolderFactory
-import ru.tinkoff.tirecycler.R
-import ru.tinkoff.tirecycler.items.HeaderUiViewHolder
-import ru.tinkoff.tirecycler.items.MultiChoiceCheckViewHolder
-import ru.tinkoff.tirecycler.items.TextUiViewHolder
-import ru.tinkoff.tirecycler.items.TitleWithSubtitleViewHolder
+import ru.tinkoff.mobile.tech.tirecycler.R
+import ru.tinkoff.mobile.tech.tirecycler.items.HeaderUiViewHolder
+import ru.tinkoff.mobile.tech.tirecycler.items.MultiChoiceCheckViewHolder
+import ru.tinkoff.mobile.tech.tirecycler.items.TextUiViewHolder
+import ru.tinkoff.mobile.tech.tirecycler.items.TitleWithSubtitleViewHolder
 
 class SampleTiRecyclerHolderFactory : RxHolderFactory() {
 

@@ -5,7 +5,7 @@ plugins {
 apply from: '../gradle/publish-lib.gradle'
 
 android {
-    namespace = "ru.tinkoff.ti_recycler_coroutines"
+    namespace = "ru.tinkoff.mobile.tech.ti_recycler_coroutines"
     compileSdk 33
 
     defaultConfig {

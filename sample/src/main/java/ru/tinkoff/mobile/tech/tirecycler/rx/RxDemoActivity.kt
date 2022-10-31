@@ -1,4 +1,4 @@
-package ru.tinkoff.tirecycler.rx
+package ru.tinkoff.mobile.tech.tirecycler.rx
 
 import android.os.Bundle
 import android.widget.Toast
@@ -9,13 +9,9 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.TiRecyclerRx
-import ru.tinkoff.tirecycler.R
-import ru.tinkoff.tirecycler.databinding.ActivityRecyclerBinding
-import ru.tinkoff.tirecycler.items.HeaderUi
-import ru.tinkoff.tirecycler.items.MultiChoiceCheckUi
-import ru.tinkoff.tirecycler.items.TextUi
-import ru.tinkoff.tirecycler.items.TitleWithSubtitleUi
-import ru.tinkoff.tirecycler.items.getBaseRecyclerItems
+import ru.tinkoff.mobile.tech.tirecycler.R
+import ru.tinkoff.mobile.tech.tirecycler.databinding.ActivityRecyclerBinding
+import ru.tinkoff.mobile.tech.tirecycler.items.*
 
 
 class RxDemoActivity : AppCompatActivity(R.layout.activity_recycler) {

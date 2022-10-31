@@ -15,14 +15,7 @@ class TiRecyclerItemLongClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
 
     override fun accept(viewHolder: BaseViewHolder<*>, onClick: () -> Unit) {
         viewHolder.itemView.run {
-            setOnLongClickListener(
-                Listener(
-                    source,
-                    viewHolder,
-                    this,
-                    onClick
-                )
-            )
+            setOnLongClickListener(Listener(source, viewHolder, this, onClick))
         }
     }
 
@@ -41,16 +34,10 @@ class TiRecyclerItemLongClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
         private val onClick: () -> Unit
     ) : View.OnLongClickListener {
 
-        override fun onLongClick(v: View): Boolean {
-            return if (viewHolder.bindingAdapterPosition != RecyclerView.NO_POSITION) {
+        override fun onLongClick(v: View): Boolean = viewHolder.run {
+            return if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                 onClick()
-                source.tryEmit(
-                    ItemClick(
-                        viewHolder.itemViewType,
-                        viewHolder.bindingAdapterPosition,
-                        clickedView
-                    )
-                )
+                source.tryEmit(ItemClick(itemViewType, bindingAdapterPosition, clickedView))
                 true
             } else {
                 false

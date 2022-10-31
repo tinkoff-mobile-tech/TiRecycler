@@ -1,7 +1,7 @@
-package ru.tinkoff.tirecycler.items
+package ru.tinkoff.mobile.tech.tirecycler.items
 
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
-import ru.tinkoff.tirecycler.R
+import ru.tinkoff.mobile.tech.tirecycler.R
 
 fun getBaseRecyclerItems(): List<ViewTyped> {
     return listOf(

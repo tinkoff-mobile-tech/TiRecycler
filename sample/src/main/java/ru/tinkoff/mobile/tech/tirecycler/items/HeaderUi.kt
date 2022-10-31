@@ -1,11 +1,11 @@
-package ru.tinkoff.tirecycler.items
+package ru.tinkoff.mobile.tech.tirecycler.items
 
 import android.view.View
 import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
-import ru.tinkoff.tirecycler.R
-import ru.tinkoff.tirecycler.databinding.ItemHeaderBinding
+import ru.tinkoff.mobile.tech.tirecycler.R
+import ru.tinkoff.mobile.tech.tirecycler.databinding.ItemHeaderBinding
 
 data class HeaderUi(
     val text: CharSequence,

@@ -1,4 +1,4 @@
-package ru.tinkoff.tirecycler.items
+package ru.tinkoff.mobile.tech.tirecycler.items
 
 import android.view.View
 import androidx.annotation.ColorRes
@@ -7,10 +7,10 @@ import androidx.core.content.ContextCompat
 import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
-import ru.tinkoff.tirecycler.R
-import ru.tinkoff.tirecycler.databinding.ItemTextBinding
-import ru.tinkoff.tirecycler.util.removeAllCompoundDrawables
-import ru.tinkoff.tirecycler.util.setCompoundDrawables
+import ru.tinkoff.mobile.tech.tirecycler.R
+import ru.tinkoff.mobile.tech.tirecycler.databinding.ItemTextBinding
+import ru.tinkoff.mobile.tech.tirecycler.util.removeAllCompoundDrawables
+import ru.tinkoff.mobile.tech.tirecycler.util.setCompoundDrawables
 
 data class TextUi(
     val text: CharSequence,

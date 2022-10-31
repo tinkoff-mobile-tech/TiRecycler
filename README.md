@@ -11,13 +11,14 @@ some important differences. More info in [Motivation](#motivation) section
 Add dependencies to your build.gradle
 
 ```kotlin
-//pure base lib dependency without any concurrent work (but you will need to implement some basic stuff to work with click and etc.)
-implementation 'ru.tinkoff.mobile:ti-recycler:1.0.0'
-//or 
+// pure base lib dependency without any concurrent work (but you will need to implement some basic stuff to work with click and etc.)
+implementation 'ru.tinkoff.mobile:ti-recycler:2.0.0'
+// or 
 // version with RxJava2 
-implementation 'ru.tinkoff.mobile:ti-recycler-rx2:1.0.0'
-
-//if you want coroutines version feel free to contribute or wait for me doing it
+implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.0.0'
+// or
+// coroutines(Flow) version
+implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.0.0'
 ```
 
 # How to use it
@@ -38,10 +39,10 @@ data class TextUi(
 Then create instance of BaseRxViewHolder for this TextUi type:
 
 ```kotlin
-open class TextUiViewHolder(view: View, clicks: TiRecyclerHolderClickListener) :
-    BaseRxViewHolder<TextUi>(view, clicks) {
+open class TextUiViewHolder(view: View, clicks: TiRecyclerClickListener) :
+    BaseViewHolder<TextUi>(view, clicks) {
 
-    private val binding = ItemTextBinding.bind(view.findViewById(R.id.title))
+    private val binding = ItemTextBinding.bind(view)
 
     override fun bind(item: TextUi) = with(binding) {
         title.text = item.text
@@ -57,7 +58,7 @@ Also we need to create instance of HolderFactory:
 ```kotlin
 class SampleTiRecyclerHolderFactory : RxHolderFactory() {
 
-    override fun createViewHolder(view: View, viewType: Int): BaseRxViewHolder<*>? {
+    override fun createViewHolder(view: View, viewType: Int): BaseViewHolder<*>? {
         return when (viewType) {
             R.layout.item_text -> TextUiViewHolder(view, clicks)
             else -> null
@@ -99,17 +100,36 @@ private fun getBaseRecyclerItems(): List<ViewTyped> {
 
 In your activity(or you may extract this logic to another file) you should add something like this:
 
+Rx:
+
 ```kotlin
 
 disposable = Observable.mergeArray(
-        recycler.clickedItem<TextUi>(R.layout.item_text).map { "TextUi: ${it.text}" },
-        recycler.clickedItem<HeaderUi>(R.layout.item_header).map { "HeaderUi: ${it.text}" },
-    ).subscribe {
-        Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-    }
+    recycler.clickedItem<TextUi>(R.layout.item_text).map { "TextUi: ${it.text}" },
+    recycler.clickedItem<HeaderUi>(R.layout.item_header).map { "HeaderUi: ${it.text}" },
+).subscribe {
+    Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+}
 ```
 
-More examples you can see in [sample project](sample/src/main/java/ru/tinkoff/tirecycler)
+Coroutines(Flow):
+
+```kotlin
+
+lifecycleScope.launch {
+    listOf(
+        recycler.clickedItem<TextUi>(R.layout.item_text)
+            .map { "TextUi: ${it.text}" },
+        recycler.clickedItem<HeaderUi>(R.layout.item_header)
+            .map { "HeaderUi: ${it.text}" },
+    )
+        .merge()
+        .collect { Toast.makeText(this, it, Toast.LENGTH_LONG).show() }
+}
+```
+
+More examples you can see
+in [sample project](sample/src/main/java/ru/tinkoff/mobile/tech/tirecycler)
 
 # Motivation
 

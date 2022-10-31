@@ -1,4 +1,4 @@
-package ru.tinkoff.tirecycler.coroutines
+package ru.tinkoff.mobile.tech.tirecycler.coroutines
 
 import android.os.Bundle
 import android.widget.Toast
@@ -11,13 +11,9 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.TiRecyclerCoroutines
-import ru.tinkoff.tirecycler.R
-import ru.tinkoff.tirecycler.databinding.ActivityRecyclerBinding
-import ru.tinkoff.tirecycler.items.HeaderUi
-import ru.tinkoff.tirecycler.items.MultiChoiceCheckUi
-import ru.tinkoff.tirecycler.items.TextUi
-import ru.tinkoff.tirecycler.items.TitleWithSubtitleUi
-import ru.tinkoff.tirecycler.items.getBaseRecyclerItems
+import ru.tinkoff.mobile.tech.tirecycler.R
+import ru.tinkoff.mobile.tech.tirecycler.databinding.ActivityRecyclerBinding
+import ru.tinkoff.mobile.tech.tirecycler.items.*
 
 class CoroutinesDemoActivity : AppCompatActivity(R.layout.activity_recycler) {
 
@@ -43,7 +39,9 @@ class CoroutinesDemoActivity : AppCompatActivity(R.layout.activity_recycler) {
                     .map { "MultiChoiceCheckUi: ${it.title}, isChecked: ${it.isChecked}" },
             )
                 .merge()
-                .collect { Toast.makeText(this@CoroutinesDemoActivity, it, Toast.LENGTH_LONG).show() }
+                .collect {
+                    Toast.makeText(this@CoroutinesDemoActivity, it, Toast.LENGTH_LONG).show()
+                }
         }
     }
 }

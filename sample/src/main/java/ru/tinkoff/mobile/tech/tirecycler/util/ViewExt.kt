@@ -1,4 +1,4 @@
-package ru.tinkoff.tirecycler.util
+package ru.tinkoff.mobile.tech.tirecycler.util
 
 import android.widget.ImageView
 import android.widget.TextView

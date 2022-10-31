@@ -5,10 +5,10 @@ plugins {
 
 
 android {
+    namespace = "ru.tinkoff.mobile.tech.tirecycler"
     compileSdk = 33
-
     defaultConfig {
-        applicationId "ru.tinkoff.tirecycler_sample"
+        applicationId "ru.tinkoff.mobile.tech.tirecycler_sample"
         minSdk 21
         targetSdk 33
         versionCode 1
