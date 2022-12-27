@@ -32,6 +32,6 @@ open class ViewTypedDiffCallback<T : ViewTyped>(
     }
 
     override fun getChangePayload(oldItem: T, newItem: T): Any? {
-        return payloadMappers?.get(newItem.viewType)?.invoke(newItem)
+        return payloadMappers?.get(newItem.viewType)?.invoke(oldItem, newItem)
     }
 }
