@@ -4,7 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.tinkoff.mobile.tech.ti_recycler.adapters.BaseTiAdapter
 import ru.tinkoff.mobile.tech.ti_recycler.base.HolderFactory
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
+import ru.tinkoff.mobile.tech.ti_recycler.base.footer.StickyFooterViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler.base.header.StickyHeaderViewTyped
+import ru.tinkoff.mobile.tech.ti_recycler.decorators.StickyFooterItemDecoration
 import ru.tinkoff.mobile.tech.ti_recycler.decorators.StickyHeaderItemDecoration
 
 interface TiRecyclerBuilder<T : ViewTyped, HF : HolderFactory, TiRecycler : BaseTiRecycler<T, HF>> {
@@ -17,6 +19,9 @@ interface TiRecyclerBuilder<T : ViewTyped, HF : HolderFactory, TiRecycler : Base
         itemDecoration += StickyHeaderItemDecoration(isHeader)
     }
 
+    fun withStickyFooters(isFooter: (ViewTyped) -> Boolean = { it is StickyFooterViewTyped }) {
+        itemDecoration += StickyFooterItemDecoration(isFooter)
+    }
+
     fun build(recyclerView: RecyclerView): TiRecycler
 }
-
