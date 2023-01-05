@@ -5,6 +5,9 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
+import ru.tinkoff.mobile.tech.ti_recycler.scroll.BaseEndLessScrollListener
+import ru.tinkoff.mobile.tech.ti_recycler.scroll.DEFAULT_PAGE_SIZE
+import ru.tinkoff.mobile.tech.ti_recycler.scroll.DEFAULT_THRESHOLD
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.util.checkMainThread
 
 fun RecyclerView.endlessScrollFlow(

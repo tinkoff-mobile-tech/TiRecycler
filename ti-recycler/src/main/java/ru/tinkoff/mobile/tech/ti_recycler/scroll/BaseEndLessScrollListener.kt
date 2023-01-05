@@ -1,4 +1,4 @@
-package ru.tinkoff.mobile.tech.ti_recycler_coroutines.scroll
+package ru.tinkoff.mobile.tech.ti_recycler.scroll
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
