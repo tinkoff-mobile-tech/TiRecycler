@@ -3,6 +3,8 @@ package ru.tinkoff.mobile.tech.ti_recycler_rx2.scroll
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.Observable
 import io.reactivex.Observer
+import ru.tinkoff.mobile.tech.ti_recycler.scroll.DEFAULT_PAGE_SIZE
+import ru.tinkoff.mobile.tech.ti_recycler.scroll.DEFAULT_THRESHOLD
 
 fun RecyclerView.endlessScrollObservable(
     pageSize: Int = DEFAULT_PAGE_SIZE,
@@ -18,18 +20,8 @@ private class SimpleEndlessScrollObservable(
 ) : Observable<Int>() {
 
     override fun subscribeActual(observer: Observer<in Int>) {
-        val listener = SimpleEndLessScrollListener(recycler, observer, pageSize, threshHold)
+        val listener = DisposableEndLessScrollListener(recycler, pageSize, threshHold, observer)
         observer.onSubscribe(listener)
         recycler.addOnScrollListener(listener.scrollListener)
-    }
-
-    class SimpleEndLessScrollListener(
-        recycler: RecyclerView,
-        private val observer: Observer<in Int>,
-        pageSize: Int,
-        visibleThreshold: Int
-    ) : BaseEndLessScrollListener(recycler, pageSize, visibleThreshold) {
-
-        override fun loadMore(itemCount: Int) = observer.onNext(itemCount)
     }
 }
