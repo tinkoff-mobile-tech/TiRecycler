@@ -11,14 +11,14 @@ some important differences. More info in [Motivation](#motivation) section
 Add dependencies to your build.gradle
 
 ```kotlin
-// pure base lib dependency without any concurrent work (but you will need to implement some basic stuff to work with click and etc.)
-implementation 'ru.tinkoff.mobile:ti-recycler:2.0.0'
+// pure base lib dependency without any concurrent work
+implementation 'ru.tinkoff.mobile:ti-recycler:2.1.0'
 // or 
 // version with RxJava2 
-implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.0.0'
+implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.1.0'
 // or
 // coroutines(Flow) version
-implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.0.0'
+implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.1.0'
 ```
 
 # How to use it
