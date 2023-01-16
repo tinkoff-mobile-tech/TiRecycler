@@ -1,3 +1,7 @@
+## 2.1.1
+
+* fix maven aar loss
+
 ## 2.1.0
 
 * [NEW] add sticky footers feature
@@ -5,7 +9,7 @@
 * extract common scroll listener and add coroutines implementation
 * update to latest agp, kotlin and gradle
 
-## 2.1.0
+## 2.0.0
 
 * refactored base implementation and added coroutines(flow) implementation
 

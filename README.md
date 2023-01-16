@@ -12,13 +12,13 @@ Add dependencies to your build.gradle
 
 ```kotlin
 // pure base lib dependency without any concurrent work
-implementation 'ru.tinkoff.mobile:ti-recycler:2.1.0'
+implementation 'ru.tinkoff.mobile:ti-recycler:2.1.1'
 // or 
 // version with RxJava2 
-implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.1.0'
+implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.1.1'
 // or
 // coroutines(Flow) version
-implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.1.0'
+implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.1.1'
 ```
 
 # How to use it
@@ -134,8 +134,6 @@ in [sample project](sample/src/main/java/ru/tinkoff/mobile/tech/tirecycler)
 # Motivation
 
 [RU: Habr](https://habr.com/ru/company/tinkoff/blog/665930/)
-
-Eng translation will be added soon
 
 ## License
 
