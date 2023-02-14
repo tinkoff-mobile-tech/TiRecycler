@@ -10,8 +10,9 @@ import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.CheckItemChange
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerCheckChangeListener
 
-class TiRecyclerCheckChangeFlow : Flow<CheckItemChange>,
-    TiRecyclerCheckChangeListener {
+interface TiRecyclerCheckChangeFlow : Flow<CheckItemChange>, TiRecyclerCheckChangeListener
+
+class TiRecyclerCheckChangeFlowImpl : TiRecyclerCheckChangeFlow {
 
     private val source = MutableSharedFlow<CheckItemChange>(extraBufferCapacity = 1)
 

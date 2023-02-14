@@ -5,14 +5,17 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import ru.tinkoff.mobile.tech.ti_recycler.base.HolderFactory
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerCheckChangeFlow
+import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerCheckChangeFlowImpl
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemClicksFlow
+import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemClicksFlowImpl
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemLongClicksFlow
+import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemLongClicksFlowImpl
 
 abstract class CoroutinesHolderFactory : HolderFactory {
 
-    protected val clicks = TiRecyclerItemClicksFlow()
-    protected val longClicks = TiRecyclerItemLongClicksFlow()
-    protected val checkChanges = TiRecyclerCheckChangeFlow()
+    protected val clicks: TiRecyclerItemClicksFlow = TiRecyclerItemClicksFlowImpl()
+    protected val longClicks: TiRecyclerItemLongClicksFlow = TiRecyclerItemLongClicksFlowImpl()
+    protected val checkChanges: TiRecyclerCheckChangeFlow = TiRecyclerCheckChangeFlowImpl()
 
     fun clickPosition(vararg viewType: Int): Flow<Int> {
         return clicks.filter { it.viewType in viewType }

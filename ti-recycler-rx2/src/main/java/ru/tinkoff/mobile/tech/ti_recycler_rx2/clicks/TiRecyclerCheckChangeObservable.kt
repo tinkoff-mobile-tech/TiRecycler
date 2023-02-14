@@ -11,9 +11,9 @@ import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.CheckItemChange
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerCheckChangeListener
 
+abstract class TiRecyclerCheckChangeObservable : Observable<CheckItemChange>(), TiRecyclerCheckChangeListener
 
-class TiRecyclerCheckChangeObservable : Observable<CheckItemChange>(),
-    TiRecyclerCheckChangeListener {
+class TiRecyclerCheckChangeObservableImpl : TiRecyclerCheckChangeObservable() {
 
     private val source: PublishRelay<CheckItemChange> = PublishRelay.create()
 

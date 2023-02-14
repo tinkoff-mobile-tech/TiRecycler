@@ -9,7 +9,9 @@ import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.ItemClick
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 
-class TiRecyclerItemLongClicksFlow : Flow<ItemClick>, TiRecyclerClickListener {
+interface TiRecyclerItemLongClicksFlow : Flow<ItemClick>, TiRecyclerClickListener
+
+class TiRecyclerItemLongClicksFlowImpl : TiRecyclerItemLongClicksFlow {
 
     private val source: MutableSharedFlow<ItemClick> = MutableSharedFlow(extraBufferCapacity = 1)
 
