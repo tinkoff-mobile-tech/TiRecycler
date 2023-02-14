@@ -4,14 +4,17 @@ import io.reactivex.Observable
 import ru.tinkoff.mobile.tech.ti_recycler.base.HolderFactory
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.ItemClick
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerCheckChangeObservable
+import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerCheckChangeObservableImpl
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemClicksObservable
+import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemClicksObservableImpl
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemLongClicksObservable
+import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemLongClicksObservableImpl
 
 abstract class RxHolderFactory : HolderFactory {
 
-    protected val clicks = TiRecyclerItemClicksObservable()
-    protected val longClicks = TiRecyclerItemLongClicksObservable()
-    protected val checkChanges = TiRecyclerCheckChangeObservable()
+    protected val clicks: TiRecyclerItemClicksObservable = TiRecyclerItemClicksObservableImpl()
+    protected val longClicks: TiRecyclerItemLongClicksObservable = TiRecyclerItemLongClicksObservableImpl()
+    protected val checkChanges: TiRecyclerCheckChangeObservable = TiRecyclerCheckChangeObservableImpl()
 
     fun clickPosition(vararg viewType: Int): Observable<Int> {
         return clicks.filter { it.viewType in viewType }.map(ItemClick::position)

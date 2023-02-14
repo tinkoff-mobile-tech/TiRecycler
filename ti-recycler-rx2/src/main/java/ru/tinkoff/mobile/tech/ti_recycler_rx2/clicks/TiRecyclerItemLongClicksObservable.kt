@@ -10,8 +10,9 @@ import ru.tinkoff.mobile.tech.ti_recycler.base.BaseViewHolder
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.ItemClick
 import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerClickListener
 
+abstract class TiRecyclerItemLongClicksObservable : Observable<ItemClick>(), TiRecyclerClickListener
 
-class TiRecyclerItemLongClicksObservable : Observable<ItemClick>(), TiRecyclerClickListener {
+class TiRecyclerItemLongClicksObservableImpl : TiRecyclerItemLongClicksObservable() {
 
     private val source: PublishRelay<ItemClick> = PublishRelay.create()
 
