@@ -1,3 +1,7 @@
+## 2.1.2
+
+* [NEW] Clicks interface extracted in more right way
+
 ## 2.1.1
 
 * fix maven aar loss
