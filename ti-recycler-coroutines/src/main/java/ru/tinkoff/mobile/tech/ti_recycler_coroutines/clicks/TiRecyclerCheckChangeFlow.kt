@@ -13,7 +13,7 @@ import ru.tinkoff.mobile.tech.ti_recycler.clicks.TiRecyclerCheckChangeListener
 class TiRecyclerCheckChangeFlow : Flow<CheckItemChange>,
     TiRecyclerCheckChangeListener {
 
-    private val source = MutableSharedFlow<CheckItemChange>()
+    private val source = MutableSharedFlow<CheckItemChange>(extraBufferCapacity = 1)
 
     override fun accept(viewHolder: BaseViewHolder<*>, onCheckChanged: (Boolean) -> Unit) {
         (viewHolder.itemView as? CompoundButton)
