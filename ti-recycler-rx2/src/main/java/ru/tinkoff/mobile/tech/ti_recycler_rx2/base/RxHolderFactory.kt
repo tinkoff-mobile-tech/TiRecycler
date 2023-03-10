@@ -14,10 +14,10 @@ import ru.tinkoff.mobile.tech.ti_recycler_rx2.swipes.OnItemDismissObservableImpl
 
 abstract class RxHolderFactory : HolderFactory {
 
-    internal open val swipesToDismiss: OnItemDismissObservable = OnItemDismissObservableImpl()
-    protected val clicks: TiRecyclerItemClicksObservable = TiRecyclerItemClicksObservableImpl()
-    protected val longClicks: TiRecyclerItemLongClicksObservable = TiRecyclerItemLongClicksObservableImpl()
-    protected val checkChanges: TiRecyclerCheckChangeObservable = TiRecyclerCheckChangeObservableImpl()
+    internal val swipesToDismiss: OnItemDismissObservable = OnItemDismissObservableImpl()
+    protected open val clicks: TiRecyclerItemClicksObservable = TiRecyclerItemClicksObservableImpl()
+    protected open val longClicks: TiRecyclerItemLongClicksObservable = TiRecyclerItemLongClicksObservableImpl()
+    protected open val checkChanges: TiRecyclerCheckChangeObservable = TiRecyclerCheckChangeObservableImpl()
 
     fun clickPosition(vararg viewType: Int): Observable<Int> {
         return clicks.filter { it.viewType in viewType }.map(ItemClick::position)
@@ -44,6 +44,7 @@ abstract class RxHolderFactory : HolderFactory {
     }
 
     fun swipesToDismiss(vararg viewType: Int): Observable<Int> {
-        return swipesToDismiss.filter { it.itemViewType in viewType }.map { it.adapterPosition }
+        return swipesToDismiss.filter { it.itemViewType in viewType }
+            .map { it.absoluteAdapterPosition }
     }
 }

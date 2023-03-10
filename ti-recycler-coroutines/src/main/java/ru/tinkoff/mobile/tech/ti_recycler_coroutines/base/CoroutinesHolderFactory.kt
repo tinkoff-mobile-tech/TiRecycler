@@ -15,10 +15,10 @@ import ru.tinkoff.mobile.tech.ti_recycler_coroutines.swipes.OnItemDismissFlowImp
 
 abstract class CoroutinesHolderFactory : HolderFactory {
 
-    internal open val swipesToDismiss: OnItemDismissFlow = OnItemDismissFlowImpl()
-    protected val clicks: TiRecyclerItemClicksFlow = TiRecyclerItemClicksFlowImpl()
-    protected val longClicks: TiRecyclerItemLongClicksFlow = TiRecyclerItemLongClicksFlowImpl()
-    protected val checkChanges: TiRecyclerCheckChangeFlow = TiRecyclerCheckChangeFlowImpl()
+    internal val swipesToDismiss: OnItemDismissFlow = OnItemDismissFlowImpl()
+    protected open val clicks: TiRecyclerItemClicksFlow = TiRecyclerItemClicksFlowImpl()
+    protected open val longClicks: TiRecyclerItemLongClicksFlow = TiRecyclerItemLongClicksFlowImpl()
+    protected open val checkChanges: TiRecyclerCheckChangeFlow = TiRecyclerCheckChangeFlowImpl()
 
     fun clickPosition(vararg viewType: Int): Flow<Int> {
         return clicks
@@ -53,6 +53,6 @@ abstract class CoroutinesHolderFactory : HolderFactory {
     fun swipesToDismiss(vararg viewType: Int): Flow<Int> {
         return swipesToDismiss
             .filter { it.itemViewType in viewType }
-            .map { it.adapterPosition }
+            .map { it.absoluteAdapterPosition }
     }
 }
