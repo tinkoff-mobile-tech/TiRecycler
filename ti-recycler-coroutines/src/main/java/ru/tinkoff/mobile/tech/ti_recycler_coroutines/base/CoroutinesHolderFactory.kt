@@ -10,15 +10,19 @@ import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemClicks
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemClicksFlowImpl
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemLongClicksFlow
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemLongClicksFlowImpl
+import ru.tinkoff.mobile.tech.ti_recycler_coroutines.swipes.OnItemDismissFlow
+import ru.tinkoff.mobile.tech.ti_recycler_coroutines.swipes.OnItemDismissFlowImpl
 
 abstract class CoroutinesHolderFactory : HolderFactory {
 
+    internal open val swipesToDismiss: OnItemDismissFlow = OnItemDismissFlowImpl()
     protected val clicks: TiRecyclerItemClicksFlow = TiRecyclerItemClicksFlowImpl()
     protected val longClicks: TiRecyclerItemLongClicksFlow = TiRecyclerItemLongClicksFlowImpl()
     protected val checkChanges: TiRecyclerCheckChangeFlow = TiRecyclerCheckChangeFlowImpl()
 
     fun clickPosition(vararg viewType: Int): Flow<Int> {
-        return clicks.filter { it.viewType in viewType }
+        return clicks
+            .filter { it.viewType in viewType }
             .map { it.position }
     }
 
@@ -44,5 +48,11 @@ abstract class CoroutinesHolderFactory : HolderFactory {
         return checkChanges
             .filter { it.viewType == viewType && it.compoundView.id == viewId }
             .map { it.position to it.compoundView.isChecked }
+    }
+
+    fun swipesToDismiss(vararg viewType: Int): Flow<Int> {
+        return swipesToDismiss
+            .filter { it.itemViewType in viewType }
+            .map { it.adapterPosition }
     }
 }

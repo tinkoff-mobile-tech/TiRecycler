@@ -46,6 +46,7 @@ interface TiRecyclerCoroutines<T : ViewTyped> : BaseTiRecycler<T, CoroutinesHold
     fun <R : ViewTyped> longClickedItem(vararg viewType: Int): Flow<R>
     fun <R : ViewTyped> longClickedViewId(viewType: Int, viewId: Int): Flow<R>
     fun <R : ViewTyped> checkChanged(viewType: Int, viewId: Int): Flow<Pair<R, Boolean>>
+    fun <R : ViewTyped> swipeToDismiss(vararg viewType: Int): Flow<R>
 }
 
 @Suppress("UNCHECKED_CAST")
@@ -81,5 +82,10 @@ internal class TiRecyclerCoroutinesImpl<T : ViewTyped>(
     ): Flow<Pair<R, Boolean>> {
         return adapter.holderFactory.checkChanges(viewType, viewId)
             .map { (clickedPosition, isChecked) -> adapter.items[clickedPosition] as R to isChecked }
+    }
+
+    override fun <R : ViewTyped> swipeToDismiss(vararg viewType: Int): Flow<R> {
+        return adapter.holderFactory.swipesToDismiss(*viewType)
+            .map { adapter.items[it] as R }
     }
 }
