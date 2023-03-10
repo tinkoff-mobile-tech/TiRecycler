@@ -2,6 +2,7 @@
 
 package ru.tinkoff.mobile.tech.ti_recycler
 
+import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
@@ -17,6 +18,8 @@ val RecyclerView.baseAdapter: BaseTiAdapter<ViewTyped, HolderFactory>
     get() = adapter as BaseTiAdapter<ViewTyped, HolderFactory>
 
 internal fun View.dpToPx(sizeInDp: Int): Int = dpToPx(resources.displayMetrics, sizeInDp.toFloat())
+
+internal fun Context.dpToPx(sizeInDp: Int): Int = dpToPx(resources.displayMetrics, sizeInDp.toFloat())
 
 private fun dpToPx(displayMetrics: DisplayMetrics, sizeInDp: Float): Int {
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sizeInDp, displayMetrics).toInt()

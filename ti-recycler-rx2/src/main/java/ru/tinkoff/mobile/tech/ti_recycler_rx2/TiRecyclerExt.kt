@@ -45,6 +45,7 @@ interface TiRecyclerRx<T : ViewTyped> : BaseTiRecycler<T, RxHolderFactory> {
     fun <R : ViewTyped> longClickedItem(vararg viewType: Int): Observable<R>
     fun <R : ViewTyped> longClickedViewId(viewType: Int, viewId: Int): Observable<R>
     fun <R : ViewTyped> checkChanged(viewType: Int, viewId: Int): Observable<Pair<R, Boolean>>
+    fun <R : ViewTyped> swipeToDismiss(vararg viewType: Int): Observable<R>
 }
 
 @Suppress("UNCHECKED_CAST")
@@ -80,5 +81,10 @@ internal class TiRecyclerRxImpl<T : ViewTyped>(
     ): Observable<Pair<R, Boolean>> {
         return adapter.holderFactory.checkChanges(viewType, viewId)
             .map { (clickedPosition, isChecked) -> adapter.items[clickedPosition] as R to isChecked }
+    }
+
+    override fun <R : ViewTyped> swipeToDismiss(vararg viewType: Int): Observable<R> {
+        return adapter.holderFactory.swipesToDismiss(*viewType)
+            .map { adapter.items[it] as R }
     }
 }

@@ -9,9 +9,12 @@ import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemClicksObserva
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemClicksObservableImpl
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemLongClicksObservable
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.clicks.TiRecyclerItemLongClicksObservableImpl
+import ru.tinkoff.mobile.tech.ti_recycler_rx2.swipes.OnItemDismissObservable
+import ru.tinkoff.mobile.tech.ti_recycler_rx2.swipes.OnItemDismissObservableImpl
 
 abstract class RxHolderFactory : HolderFactory {
 
+    internal open val swipesToDismiss: OnItemDismissObservable = OnItemDismissObservableImpl()
     protected val clicks: TiRecyclerItemClicksObservable = TiRecyclerItemClicksObservableImpl()
     protected val longClicks: TiRecyclerItemLongClicksObservable = TiRecyclerItemLongClicksObservableImpl()
     protected val checkChanges: TiRecyclerCheckChangeObservable = TiRecyclerCheckChangeObservableImpl()
@@ -38,5 +41,9 @@ abstract class RxHolderFactory : HolderFactory {
         return checkChanges.filter {
             it.viewType == viewType && it.compoundView.id == viewId
         }.map { it.position to it.compoundView.isChecked }
+    }
+
+    fun swipesToDismiss(vararg viewType: Int): Observable<Int> {
+        return swipesToDismiss.filter { it.itemViewType in viewType }.map { it.adapterPosition }
     }
 }
