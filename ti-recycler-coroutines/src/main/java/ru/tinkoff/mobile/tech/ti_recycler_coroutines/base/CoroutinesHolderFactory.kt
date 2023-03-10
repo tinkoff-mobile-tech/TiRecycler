@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import ru.tinkoff.mobile.tech.ti_recycler.base.HolderFactory
+import ru.tinkoff.mobile.tech.ti_recycler_coroutines.actions.TiRecyclerCustomActionFlow
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerCheckChangeFlow
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerCheckChangeFlowImpl
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemClicksFlow
@@ -12,6 +13,7 @@ import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemLongCl
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.clicks.TiRecyclerItemLongClicksFlowImpl
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.swipes.OnItemDismissFlow
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.swipes.OnItemDismissFlowImpl
+import kotlin.reflect.KClass
 
 abstract class CoroutinesHolderFactory : HolderFactory {
 
@@ -19,6 +21,7 @@ abstract class CoroutinesHolderFactory : HolderFactory {
     protected open val clicks: TiRecyclerItemClicksFlow = TiRecyclerItemClicksFlowImpl()
     protected open val longClicks: TiRecyclerItemLongClicksFlow = TiRecyclerItemLongClicksFlowImpl()
     protected open val checkChanges: TiRecyclerCheckChangeFlow = TiRecyclerCheckChangeFlowImpl()
+    protected open val customActions: Map<KClass<*>, TiRecyclerCustomActionFlow<*, *>> = emptyMap()
 
     fun clickPosition(vararg viewType: Int): Flow<Int> {
         return clicks
@@ -54,5 +57,11 @@ abstract class CoroutinesHolderFactory : HolderFactory {
         return swipesToDismiss
             .filter { it.itemViewType in viewType }
             .map { it.absoluteAdapterPosition }
+    }
+
+    fun <T : Any> customAction(viewType: Int, actionClass: KClass<T>): Flow<Pair<Int, T>> {
+        return customActions.getValue(actionClass).source
+            .filter { it.viewType == viewType }
+            .map { it.position to it.value as T }
     }
 }

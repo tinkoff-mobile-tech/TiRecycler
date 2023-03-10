@@ -9,6 +9,7 @@ import ru.tinkoff.mobile.tech.ti_recycler.TiRecyclerBuilder
 import ru.tinkoff.mobile.tech.ti_recycler.adapters.BaseTiAdapter
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.base.CoroutinesHolderFactory
+import kotlin.reflect.KClass
 
 interface TiRecyclerCoroutines<T : ViewTyped> : BaseTiRecycler<T, CoroutinesHolderFactory> {
 
@@ -47,6 +48,7 @@ interface TiRecyclerCoroutines<T : ViewTyped> : BaseTiRecycler<T, CoroutinesHold
     fun <R : ViewTyped> longClickedViewId(viewType: Int, viewId: Int): Flow<R>
     fun <R : ViewTyped> checkChanged(viewType: Int, viewId: Int): Flow<Pair<R, Boolean>>
     fun <R : ViewTyped> swipeToDismiss(vararg viewType: Int): Flow<R>
+    fun <R : ViewTyped, A : Any> customAction(viewType: Int, actionClass: KClass<A>): Flow<Pair<R, A>>
 }
 
 @Suppress("UNCHECKED_CAST")
@@ -88,4 +90,18 @@ internal class TiRecyclerCoroutinesImpl<T : ViewTyped>(
         return adapter.holderFactory.swipesToDismiss(*viewType)
             .map { adapter.items[it] as R }
     }
+
+    override fun <R : ViewTyped, A : Any> customAction(
+        viewType: Int,
+        actionClass: KClass<A>,
+    ): Flow<Pair<R, A>> {
+        return adapter.holderFactory.customAction(viewType, actionClass)
+            .map { (position, value) -> adapter.items[position] as R to value }
+    }
+}
+
+inline fun <R : ViewTyped, reified A : Any> TiRecyclerCoroutines<ViewTyped>.customAction(
+    viewType: Int
+): Flow<Pair<R, A>> {
+    return customAction(viewType, A::class)
 }

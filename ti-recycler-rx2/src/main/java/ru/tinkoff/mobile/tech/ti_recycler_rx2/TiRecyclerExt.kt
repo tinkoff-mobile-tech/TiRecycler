@@ -8,6 +8,7 @@ import ru.tinkoff.mobile.tech.ti_recycler.TiRecyclerBuilder
 import ru.tinkoff.mobile.tech.ti_recycler.adapters.BaseTiAdapter
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.base.RxHolderFactory
+import kotlin.reflect.KClass
 
 interface TiRecyclerRx<T : ViewTyped> : BaseTiRecycler<T, RxHolderFactory> {
 
@@ -46,6 +47,7 @@ interface TiRecyclerRx<T : ViewTyped> : BaseTiRecycler<T, RxHolderFactory> {
     fun <R : ViewTyped> longClickedViewId(viewType: Int, viewId: Int): Observable<R>
     fun <R : ViewTyped> checkChanged(viewType: Int, viewId: Int): Observable<Pair<R, Boolean>>
     fun <R : ViewTyped> swipeToDismiss(vararg viewType: Int): Observable<R>
+    fun <R : ViewTyped, A : Any> customAction(viewType: Int, actionClass: KClass<A>): Observable<Pair<R, A>>
 }
 
 @Suppress("UNCHECKED_CAST")
@@ -87,4 +89,18 @@ internal class TiRecyclerRxImpl<T : ViewTyped>(
         return adapter.holderFactory.swipesToDismiss(*viewType)
             .map { adapter.items[it] as R }
     }
+
+    override fun <R : ViewTyped, A : Any> customAction(
+        viewType: Int,
+        actionClass: KClass<A>,
+    ): Observable<Pair<R, A>> {
+        return adapter.holderFactory.customAction(viewType, actionClass)
+            .map { (position, value) -> adapter.items[position] as R to value }
+    }
+}
+
+inline fun <R : ViewTyped, reified A : Any> TiRecyclerRx<ViewTyped>.customAction(
+    viewType: Int
+): Observable<Pair<R, A>> {
+    return customAction(viewType, A::class)
 }
