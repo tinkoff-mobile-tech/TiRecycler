@@ -26,7 +26,7 @@ internal class OnItemDismissFlowImpl : OnItemDismissFlow {
     }
 
     override fun addOnDismissListener(itemDismissTouchHelperCallback: ItemDismissTouchHelperCallback) {
-        DismissListener(itemDismissTouchHelperCallback) { source.tryEmit(it) }
+        DismissListener(itemDismissTouchHelperCallback, source::tryEmit)
             .also { dismissListener -> dismissListeners.add(dismissListener) }
             .run { itemDismissTouchHelperCallback.addOnItemDismissListener(this) }
     }
