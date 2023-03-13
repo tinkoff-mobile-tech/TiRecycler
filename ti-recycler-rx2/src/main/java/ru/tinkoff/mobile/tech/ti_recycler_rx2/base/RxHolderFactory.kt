@@ -14,6 +14,7 @@ import ru.tinkoff.mobile.tech.ti_recycler_rx2.swipes.OnItemDismissObservable
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.swipes.OnItemDismissObservableImpl
 import kotlin.reflect.KClass
 
+@Suppress("UNCHECKED_CAST")
 abstract class RxHolderFactory : HolderFactory {
 
     internal val swipesToDismiss: OnItemDismissObservable = OnItemDismissObservableImpl()
