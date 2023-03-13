@@ -12,13 +12,13 @@ Add dependencies to your build.gradle
 
 ```kotlin
 // pure base lib dependency without any concurrent work
-implementation 'ru.tinkoff.mobile:ti-recycler:2.1.2'
+implementation 'ru.tinkoff.mobile:ti-recycler:2.2.0'
 // or 
 // version with RxJava2 
-implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.1.2'
+implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.2.0'
 // or
 // coroutines(Flow) version
-implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.1.2'
+implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.2.0'
 ```
 
 # How to use it
@@ -127,6 +127,67 @@ lifecycleScope.launch {
         .collect { Toast.makeText(this, it, Toast.LENGTH_LONG).show() }
 }
 ```
+
+# How to use swipe to dismiss
+
+First of all, you need to create a callback helper class
+
+```kotlin
+ItemDismissTouchHelperCallback(
+    context,
+    dismissibleViewType = youViewType,
+    icon = yourDrawable,
+    dismissBackgroundColor = Color.RED,
+    normalBackgroundColor = Color.WHITE,
+    elevation = 1f,
+    cornerRadius = 2f,
+    drawableOffsetInDp = 24,
+)
+```
+
+and add it to `itemDismissCallbacks` in you builder function for TiRecycler
+
+```kotlin
+TiRecyclerCoroutines<ViewTyped>(recyclerView, holderFactory) { //for RX use similar function builder 
+    //...
+    itemDismissCallbacks += ItemDismissTouchHelperCallback()
+}
+```
+
+and after it, you can collect events via `recycler.swipeToDismiss` method
+
+# How to use custom actions
+
+You need to implement `TiRecyclerCustomActionFlow/TiRecyclerCustomActionObservable` after it should add to map of you
+holder factory
+
+```kotlin
+class YourHolderFactory : HolderFactory() {
+
+    private val yourCustomAction = YourCustomAction()
+
+    override val customActions: Map<KClass<*>, RecyclerCustomActionObservable<*, *>>
+        get() = mapOf(YourCustomAction::class to yourCustomAction)
+
+    override fun createViewHolder(view: View, viewType: Int): BaseViewHolder<*>? {
+        when (viewTyped) {
+            R.layout.your_view_holder_layout -> YourCustomViewHolder(view, yourCustomAction)
+        }
+    }
+}
+
+class YourCustomViewHolder(
+    view: View,
+    customAction: YourCustomAction,
+) : BaseViewHolder<YourUiModel>(view) {
+
+    init {
+        customAction.accept(this, view)
+    }
+}
+```
+
+and collect events via `recycler.customAction(viewType)`
 
 More examples you can see
 in [sample project](sample/src/main/java/ru/tinkoff/mobile/tech/tirecycler)
