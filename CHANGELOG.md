@@ -1,3 +1,8 @@
+## 2.2.0
+
+* [NEW] add swipe to dismiss feature
+* [NEW] add custom actions feature
+
 ## 2.1.2
 
 * [NEW] Clicks interface extracted in more right way
