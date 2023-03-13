@@ -15,6 +15,7 @@ import ru.tinkoff.mobile.tech.ti_recycler_coroutines.swipes.OnItemDismissFlow
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.swipes.OnItemDismissFlowImpl
 import kotlin.reflect.KClass
 
+@Suppress("UNCHECKED_CAST")
 abstract class CoroutinesHolderFactory : HolderFactory {
 
     internal val swipesToDismiss: OnItemDismissFlow = OnItemDismissFlowImpl()
