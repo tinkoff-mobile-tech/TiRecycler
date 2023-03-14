@@ -12,8 +12,11 @@ import io.reactivex.disposables.Disposable
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 import ru.tinkoff.mobile.tech.ti_recycler.swipes.ItemDismissTouchHelperCallback
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.TiRecyclerRx
+import ru.tinkoff.mobile.tech.ti_recycler_rx2.customAction
 import ru.tinkoff.mobile.tech.tirecycler.R
+import ru.tinkoff.mobile.tech.tirecycler.actions.CustomClick
 import ru.tinkoff.mobile.tech.tirecycler.databinding.ActivityRecyclerBinding
+import ru.tinkoff.mobile.tech.tirecycler.items.CustomActionUi
 import ru.tinkoff.mobile.tech.tirecycler.items.HeaderUi
 import ru.tinkoff.mobile.tech.tirecycler.items.MultiChoiceCheckUi
 import ru.tinkoff.mobile.tech.tirecycler.items.TextUi
@@ -52,7 +55,9 @@ class RxDemoActivity : AppCompatActivity(R.layout.activity_recycler) {
                 .map { "TitleWithSubtitleUi: ${it.title}\n ${it.subtitle}" },
             recycler.clickedItem<MultiChoiceCheckUi>(R.layout.item_multichoice)
                 .map { "MultiChoiceCheckUi: ${it.title}, isChecked: ${it.isChecked}" },
-            recycler.swipeToDismiss<TextUi>(R.layout.item_text).map { "dismissed TextUi: ${it.text} dismissed" }
+            recycler.swipeToDismiss<TextUi>(R.layout.item_text).map { "dismissed TextUi: ${it.text} dismissed" },
+            recycler.customAction<CustomActionUi, CustomClick>(R.layout.item_custom_action)
+                .map { (_, click) -> click.title }
         ).subscribe {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
