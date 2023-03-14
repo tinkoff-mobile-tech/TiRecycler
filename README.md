@@ -145,10 +145,11 @@ ItemDismissTouchHelperCallback(
 )
 ```
 
-and add it to `itemDismissCallbacks` in you builder function for TiRecycler
+and add it to `itemDismissCallbacks` in you builder function for TiRecycler (TiRecyclerCoroutines for coroutines version
+or TiRecyclerRx for Rx version)
 
 ```kotlin
-TiRecyclerCoroutines<ViewTyped>(recyclerView, holderFactory) { //for RX use similar function builder 
+TiRecyclerCoroutines<ViewTyped>(recyclerView, holderFactory) {
     //...
     itemDismissCallbacks += ItemDismissTouchHelperCallback()
 }
@@ -158,8 +159,10 @@ and after it, you can collect events via `recycler.swipeToDismiss` method
 
 # How to use custom actions
 
-You need to implement `TiRecyclerCustomActionFlow/TiRecyclerCustomActionObservable` after it should add to map of you
-holder factory
+You need:
+
+* implement your own action with extends from `TiRecyclerCustomActionFlow/TiRecyclerCustomActionObservable`
+* add it to map in your holder factory
 
 ```kotlin
 class YourHolderFactory : HolderFactory() {
