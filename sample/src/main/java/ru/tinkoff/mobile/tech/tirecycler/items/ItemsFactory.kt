@@ -5,6 +5,7 @@ import ru.tinkoff.mobile.tech.tirecycler.R
 
 fun getBaseRecyclerItems(): List<ViewTyped> {
     return listOf(
+        CustomActionUi(),
         TextUi(text = "Below you can see examples of usage sample items"),
         TextUi(text = "In our project these items are basic and we put them in base HolderFactory"),
         HeaderUi(text = "Header 32sp", textSizeSp = 32f),
