@@ -8,8 +8,6 @@ import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
 @Suppress("VarCouldBeVal")
 interface BaseTiRecycler<T : ViewTyped, HF : HolderFactory> {
 
-    val recyclerView: RecyclerView
-
     val adapter: BaseTiAdapter<T, HF>
 
     fun setItems(items: List<T>)
