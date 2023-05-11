@@ -3,7 +3,7 @@ apply plugin: 'signing'
 
 def getReleaseRepositoryUrl() {
     return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-    : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 }
 
 def getRepositoryUsername() {
@@ -21,9 +21,6 @@ afterEvaluate {
                 from components.release
                 groupId GROUP
                 version VERSION_NAME
-                afterEvaluate {
-                    artifact sourcesJar
-                }
                 pom {
                     name = project.displayName
                     packaging = "aar"
@@ -61,18 +58,17 @@ afterEvaluate {
         }
     }
 
-    task sourcesJar(type: Jar) {
-    archiveClassifier.set("sources")
-    from android.sourceSets.main.java.srcDirs
-}
-
     signing {
         required { true }
         sign publishing.publications.release
     }
 }
 
-tasks.withType(Javadoc) {
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
+android {
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
