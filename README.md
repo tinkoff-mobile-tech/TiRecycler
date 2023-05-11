@@ -12,13 +12,13 @@ Add dependencies to your build.gradle
 
 ```kotlin
 // pure base lib dependency without any concurrent work
-implementation 'ru.tinkoff.mobile:ti-recycler:2.2.0'
+implementation 'ru.tinkoff.mobile:ti-recycler:2.2.1'
 // or 
 // version with RxJava2 
-implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.2.0'
+implementation 'ru.tinkoff.mobile:ti-recycler-rx2:2.2.1'
 // or
 // coroutines(Flow) version
-implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.2.0'
+implementation 'ru.tinkoff.mobile:ti-recycler-coroutines:2.2.1'
 ```
 
 # How to use it

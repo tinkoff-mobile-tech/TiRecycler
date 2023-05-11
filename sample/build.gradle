@@ -30,10 +30,10 @@ dependencies {
     implementation project(":ti-recycler")
     implementation project(":ti-recycler-rx2")
     implementation project(":ti-recycler-coroutines")
-    implementation "androidx.activity:activity:1.6.0"
-    implementation "androidx.core:core-ktx:1.9.0"
-    implementation "androidx.appcompat:appcompat:1.5.1"
-    implementation "com.google.android.material:material:1.7.0"
-    implementation "com.github.kirich1409:viewbindingpropertydelegate:1.5.6"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.activity:activity:1.7.1"
+    implementation "androidx.core:core-ktx:1.10.0"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.9.0"
+    implementation "com.github.kirich1409:viewbindingpropertydelegate:1.5.8"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
 }

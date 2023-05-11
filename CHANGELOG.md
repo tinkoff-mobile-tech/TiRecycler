@@ -1,3 +1,8 @@
+## 2.2.1
+
+* [NEW] added `submitItems` function with `commitCallback` In AsyncTiAdapter. CommitCallback –
+  runnable that is executed when the List is committed
+
 ## 2.2.0
 
 * [NEW] add swipe to dismiss feature
