@@ -15,4 +15,8 @@ class AsyncTiAdapter<T : ViewTyped, HF : HolderFactory>(
     override var items: List<T>
         get() = asyncListDiffer.currentList
         set(newItems) = asyncListDiffer.submitList(newItems)
+
+    fun submitItems(items: List<T>, commitCallback: () -> Unit) {
+        asyncListDiffer.submitList(items, commitCallback)
+    }
 }
