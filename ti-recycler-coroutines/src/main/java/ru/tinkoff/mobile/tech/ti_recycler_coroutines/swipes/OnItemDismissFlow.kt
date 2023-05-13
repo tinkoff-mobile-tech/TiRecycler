@@ -15,7 +15,8 @@ internal class OnItemDismissFlowImpl : OnItemDismissFlow {
 
     private val dismissListeners: MutableList<DismissListener> = mutableListOf()
 
-    private val source: MutableSharedFlow<RecyclerView.ViewHolder> = MutableSharedFlow(extraBufferCapacity = 1)
+    private val source: MutableSharedFlow<RecyclerView.ViewHolder> =
+        MutableSharedFlow(extraBufferCapacity = 1)
 
     override suspend fun collect(collector: FlowCollector<RecyclerView.ViewHolder>) {
         source.onCompletion {
@@ -27,8 +28,10 @@ internal class OnItemDismissFlowImpl : OnItemDismissFlow {
 
     override fun addOnDismissListener(itemDismissTouchHelperCallback: ItemDismissTouchHelperCallback) {
         DismissListener(itemDismissTouchHelperCallback, source::tryEmit)
-            .also { dismissListener -> dismissListeners.add(dismissListener) }
-            .run { itemDismissTouchHelperCallback.addOnItemDismissListener(this) }
+            .also { dismissListener ->
+                dismissListeners.add(dismissListener)
+                itemDismissTouchHelperCallback.addOnItemDismissListener(dismissListener)
+            }
     }
 }
 

@@ -5,12 +5,17 @@ import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.Observable
 import ru.tinkoff.mobile.tech.ti_recycler.BaseTiRecycler
 import ru.tinkoff.mobile.tech.ti_recycler.TiRecyclerBuilder
+import ru.tinkoff.mobile.tech.ti_recycler.adapters.AsyncTiAdapter
 import ru.tinkoff.mobile.tech.ti_recycler.adapters.BaseTiAdapter
+import ru.tinkoff.mobile.tech.ti_recycler.adapters.SimpleTiAdapter
+import ru.tinkoff.mobile.tech.ti_recycler.base.HolderFactory
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
+import ru.tinkoff.mobile.tech.ti_recycler.produceAdapter
 import ru.tinkoff.mobile.tech.ti_recycler_rx2.base.RxHolderFactory
 import kotlin.reflect.KClass
 
-interface TiRecyclerRx<T : ViewTyped> : BaseTiRecycler<T, RxHolderFactory> {
+
+interface TiRecyclerRx<VT : ViewTyped> : BaseTiRecycler<VT, RxHolderFactory> {
 
     companion object {
 
@@ -19,23 +24,22 @@ interface TiRecyclerRx<T : ViewTyped> : BaseTiRecycler<T, RxHolderFactory> {
             recyclerView: RecyclerView,
             holderFactory: RxHolderFactory,
             diffCallback: DiffUtil.ItemCallback<T>? = null,
-            init: TiRecyclerBuilder<T, RxHolderFactory, TiRecyclerRx<T>>.() -> Unit = {}
+            init: TiRecyclerBuilder<T, RxHolderFactory, TiRecyclerRx<T>>.() -> Unit
         ): TiRecyclerRx<T> {
-            return TiRecyclerBuilderImpl(
-                holderFactory = holderFactory,
-                diffCallback = diffCallback
+            val adapter = produceAdapter(holderFactory, diffCallback)
+            return TiRecyclerRx(
+                recyclerView = recyclerView,
+                adapter = adapter,
+                init = init
             )
-                .apply(init)
-                .build(recyclerView)
         }
 
-        @JvmOverloads
-        operator fun <T : ViewTyped> invoke(
+        operator fun <VT : ViewTyped> invoke(
             recyclerView: RecyclerView,
-            adapter: BaseTiAdapter<T, RxHolderFactory>,
-            init: TiRecyclerBuilder<T, RxHolderFactory, TiRecyclerRx<T>>.() -> Unit = {}
-        ): TiRecyclerRx<T> {
-            return TiRecyclerBuilderImpl(adapter = adapter)
+            adapter: BaseTiAdapter<VT, RxHolderFactory>,
+            init: TiRecyclerBuilder<VT, RxHolderFactory, TiRecyclerRx<VT>>.() -> Unit
+        ): TiRecyclerRx<VT> {
+            return TiRecyclerRxBuilderImpl(adapter = adapter)
                 .apply(init)
                 .build(recyclerView)
         }
@@ -47,16 +51,18 @@ interface TiRecyclerRx<T : ViewTyped> : BaseTiRecycler<T, RxHolderFactory> {
     fun <R : ViewTyped> longClickedViewId(viewType: Int, viewId: Int): Observable<R>
     fun <R : ViewTyped> checkChanged(viewType: Int, viewId: Int): Observable<Pair<R, Boolean>>
     fun <R : ViewTyped> swipeToDismiss(vararg viewType: Int): Observable<R>
-    fun <R : ViewTyped, A : Any> customAction(viewType: Int, actionClass: KClass<A>): Observable<Pair<R, A>>
+    fun <R : ViewTyped, A : Any> customAction(
+        viewType: Int,
+        actionClass: KClass<A>
+    ): Observable<Pair<R, A>>
 }
 
 @Suppress("UNCHECKED_CAST")
-internal class TiRecyclerRxImpl<T : ViewTyped>(
-    override val recyclerView: RecyclerView,
-    override val adapter: BaseTiAdapter<T, RxHolderFactory>
-) : TiRecyclerRx<T> {
+internal class TiRecyclerRxImpl<VT : ViewTyped>(
+    override val adapter: BaseTiAdapter<VT, RxHolderFactory>
+) : TiRecyclerRx<VT> {
 
-    override fun setItems(items: List<T>) {
+    override fun setItems(items: List<VT>) {
         adapter.items = items
     }
 

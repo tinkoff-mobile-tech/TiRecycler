@@ -8,13 +8,13 @@ import ru.tinkoff.mobile.tech.ti_recycler.BaseTiRecycler
 import ru.tinkoff.mobile.tech.ti_recycler.TiRecyclerBuilder
 import ru.tinkoff.mobile.tech.ti_recycler.adapters.BaseTiAdapter
 import ru.tinkoff.mobile.tech.ti_recycler.base.ViewTyped
+import ru.tinkoff.mobile.tech.ti_recycler.produceAdapter
 import ru.tinkoff.mobile.tech.ti_recycler_coroutines.base.CoroutinesHolderFactory
 import kotlin.reflect.KClass
 
 interface TiRecyclerCoroutines<T : ViewTyped> : BaseTiRecycler<T, CoroutinesHolderFactory> {
 
     companion object {
-
         @JvmOverloads
         operator fun <T : ViewTyped> invoke(
             recyclerView: RecyclerView,
@@ -22,12 +22,12 @@ interface TiRecyclerCoroutines<T : ViewTyped> : BaseTiRecycler<T, CoroutinesHold
             diffCallback: DiffUtil.ItemCallback<T>? = null,
             init: TiRecyclerBuilder<T, CoroutinesHolderFactory, TiRecyclerCoroutines<T>>.() -> Unit = {}
         ): TiRecyclerCoroutines<T> {
-            return TiRecyclerBuilderImpl(
-                holderFactory = holderFactory,
-                diffCallback = diffCallback
+            val adapter = produceAdapter(holderFactory, diffCallback)
+            return TiRecyclerCoroutines(
+                recyclerView = recyclerView,
+                adapter = adapter,
+                init = init
             )
-                .apply(init)
-                .build(recyclerView)
         }
 
         @JvmOverloads
@@ -36,7 +36,7 @@ interface TiRecyclerCoroutines<T : ViewTyped> : BaseTiRecycler<T, CoroutinesHold
             adapter: BaseTiAdapter<T, CoroutinesHolderFactory>,
             init: TiRecyclerBuilder<T, CoroutinesHolderFactory, TiRecyclerCoroutines<T>>.() -> Unit = {}
         ): TiRecyclerCoroutines<T> {
-            return TiRecyclerBuilderImpl(adapter = adapter)
+            return TiRecyclerCoroutinesBuilderImpl(adapter = adapter)
                 .apply(init)
                 .build(recyclerView)
         }
@@ -53,7 +53,6 @@ interface TiRecyclerCoroutines<T : ViewTyped> : BaseTiRecycler<T, CoroutinesHold
 
 @Suppress("UNCHECKED_CAST")
 internal class TiRecyclerCoroutinesImpl<T : ViewTyped>(
-    override val recyclerView: RecyclerView,
     override val adapter: BaseTiAdapter<T, CoroutinesHolderFactory>
 ) : TiRecyclerCoroutines<T> {
 
